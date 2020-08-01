@@ -1,5 +1,5 @@
 <!-- Heading -->
-# Menuet
+# :musical_score: Menuet
 
 <!-- Description -->
 **Menuet** is a Navigation Menu Factory I made to handle Website Navigations much easier. The goal of this factory is to make it completely customizable from the front and under the hood.
@@ -7,17 +7,17 @@
 This is also taken from [html-webpack](https://github.com/rapsamaniego27/html-webpack) in making Micro Front End Projects. I'm currently using **Laravel Mix** and **Webpack**. 
 
 
-## Getting Started
+## :notes: Getting Started
 Run the npm install command on your command prompt
 ```
 npm install
 ```
 
-## Running the Command
+## :notes: Running the Command
 ```
 npm run watch
 ```
-### Default structure
+### :skull: Default structure
 This boilerplate default setup uses the id `#wrapper` to wrap the `#main` which contains the content and `footer` for site additional info.
 
 <!-- Markup -->
@@ -46,7 +46,7 @@ If you're going to put a `navigation menu` make sure put it inside the wrapper f
 
 If you want to make some edits, you may find this in `4-layout/default-structure.scss`.
 
-## Initializing Menuet
+## :notes: Initializing Menuet
 When initializing the Menuet library, there are 4 core elements to consider.
 
 * **nav** -  the whole *navigation body*.
@@ -79,7 +79,7 @@ const menuet = new Menuet({
  subMenus: subMenus
 });
 ```
-## Skeleton of Menuet
+## :skull: Menuet Structure
 ```Javascript
 class Menuet {
  constructor({nav, openTrigger, closeTrigger, overlay, subMenus}) {
@@ -126,9 +126,9 @@ class Menuet {
 
 ```
 
-## Under the hood of Menuet
+## :notes: Under the hood of Menuet
 
-### Constructor
+### :musical_note: Constructor
 Menuet has a constructor that passes the 4 vital elements from your front end. We also declare the `header` element and `body` for future use.
 
 ```Javascript
@@ -152,7 +152,7 @@ These are Menuet functions that automatically runs when instantiated, because it
    this.close();
    this.checkIfSubmenu();
 ```
-### Close / Open Functions
+### :musical_note: Close / Open Functions
 You can modify your code in opening and closing the menu bar here.
 ```Javascript
  open(){
@@ -175,7 +175,7 @@ You can modify your code in opening and closing the menu bar here.
  }
 ```
 
-### stick Function
+### :musical_note: stick Function
 This is optional when you choose to add a sticky navigation on top. Its completely customizable as well.
 
 ```Javascript
@@ -197,7 +197,7 @@ This is optional when you choose to add a sticky navigation on top. Its complete
  }
 ```
 
-### checkifSubmenu Function
+### :musical_note: checkifSubmenu Function
 This function checks if there the menu parent elements contains submenus. If there are submenus, it runs the `toggleSubmenu` function I created. 
 
 The `action` variable detects if its mobile. If its mobile it uses the `touchstart` event which is more practical on mobile devices, or else it uses the `click` event.
@@ -231,7 +231,7 @@ You can customize the behaviour of this as well.
  }
 ```
 
-### toggleSubmenu Function
+### :musical_note: toggleSubmenu Function
 The action to be done when a menu that contains submenus is clicked. It toggles a hide/show class.
 
 
@@ -251,7 +251,7 @@ The action to be done when a menu that contains submenus is clicked. It toggles 
  
 ```
 
-### isMobile Function
+### :musical_note: isMobile Function
 Checks to see if the device/client is Mobile, then it returns `true`.
 ```Javascript
  /* Checks if device is mobile */
