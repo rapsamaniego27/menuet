@@ -18,25 +18,27 @@ npm install
 npm run watch
 ```
 ### :skull: Default structure
-This boilerplate default setup uses the id `#wrapper` to wrap the `#main` which contains the content and `footer` for site additional info.
+This boilerplate default setup uses the id `#wrapper` to wrap the `header` for the navigation, the `#main` which contains the content and `footer` for site additional info.
 
 <!-- Markup -->
 ```HTML
-<div id="main">
+<body>
+  <!-- Row Wrapper -->
   <div id="wrapper">
-    <header>
-      <!--Navigaiton menu goes here  -->
+    <header class="header">
+      <!--Navigation menu goes here  -->
     </header>
 
-    <div class="content">
+    <div id="main">
       <!--Dynamic Content goes here  -->
     </div>
-  </div>
 
-  <footer>
+    <footer>
     <!--Footer info goes here  -->
-  </footer>
-</div>
+   </footer>
+  </div>
+  <!-- End Wrapper -->
+</body>
 ```
 
 I'm using flex to have a sticky footer at the bottom. 
