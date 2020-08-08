@@ -1,18 +1,22 @@
-header{
-  background:var(--dark);
-  box-shadow: 0px 0px 20px rgba(0,0,0,0.25);
-  height:100px;
-  width:100vw;
+header {
+  background: var(--dark);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+  min-height: 100px;
+  width: 100vw;
   z-index: 500;
-  position:relative;
+  position: relative;
+  top: -10px;
+  transform: translateY(10px);
+  transition: top 0.3s ease-out;
 
   /* Responsiveness of nav */
-  @media #{$device-md} {
-    height: 70px;
+  @media #{$device-sm} {
+    min-height: 70px;
   }
 
-  @media #{$device-sm} {
-    height: 60px;
+  @media #{$device-xs} {
+    min-height: 46px;
+    padding: 0.125rem 0;
   }
 }
 
@@ -24,22 +28,22 @@ header{
   height: 100%;
 }
 
-.top-menu{
-  list-style-type:none;
-  display:flex;
-  height:100%;
+.top-menu {
+  list-style-type: none;
+  display: flex;
+  height: 100%;
 
-  li{
-    margin-left:2rem;
-    font-size:1.25rem;
-    position:relative;
-    cursor:pointer;
-    height:100%;
-    display:flex;
-    align-items:center;
+  li {
+    margin-left: 2rem;
+    font-size: 1.25rem;
+    position: relative;
+    cursor: pointer;
+    height: 100%;
+    display: flex;
+    align-items: center;
 
-    a{
-      color:var(--white);
+    a {
+      color: var(--white);
       transition: all 0.3s var(--anim-primary);
     }
   }
@@ -47,31 +51,34 @@ header{
 }
 
 
-.header__wrapper{
-  display:flex;
+.header__wrapper {
+  display: flex;
   justify-content: space-between;
-  height:100%;
-  align-items:center;
+  height: 100%;
+  align-items: center;
 
-  .burgers{
-    display:none;
-    cursor:pointer;
-    margin-top:0.33rem;
+  .burgers {
+    display: none;
+    cursor: pointer;
+    margin-top: 0.33rem;
   }
 
 }
 
- .header--sticky {
-   position: sticky;
-   z-index: 500;
-   top: 0;
- }
+.header--sticky {
+  position: sticky;
+  z-index: 500;
+  top: 0;
+  transform: translateX(0);
+  /* Cancels out all min-height properties */
+  height: 6vh;
+}
 
-.menu-overlay{
-  display:none;
+.menu-overlay {
+  display: none;
 }
 
 /* Base size of Logo */
 .header__logo-img {
- width:200px;
+  width: 175px;
 }

@@ -5,112 +5,132 @@
 */
 
 class Menuet {
- constructor({nav, openTrigger, closeTrigger, overlay, subMenus}) {
-   this.nav = nav;
-   this.openTrigger = openTrigger;
-   this.overlay = overlay;
-   this.closeTrigger = closeTrigger;
-   this.subMenus = subMenus
-   this.header = document.querySelector('header');
-   this.body = document.querySelector('body');
-   
-   //Automatic runs these functions
-   this.open();
-   this.close();
-   this.checkIfSubmenu();
- }
+  constructor({
+    nav,
+    openTrigger,
+    closeTrigger,
+    overlay,
+    subMenus
+  }) {
+    /* Arguments */
+    this.nav = nav;
+    this.openTrigger = openTrigger;
+    this.overlay = overlay;
+    this.closeTrigger = closeTrigger;
+    this.subMenus = subMenus
 
- // Properties
- 
- open(){
-  this.openTrigger.addEventListener('click', (e)=> {
-    this.nav.classList.add('menu--show');
-    this.overlay.classList.add('menu-overlay--show');
-    this.body.style.overflowY = 'hidden';
-    
-  }, false);
- }
+    /* Parents */
+    this.header = document.querySelector('header');
+    this.body = document.querySelector('body');
+    this.header = document.querySelector('.header');
+    this.wrapper = document.querySelector('#wrapper');
+    this.main = document.querySelector('#main');
 
- close(){
-  this.overlay.addEventListener('click', (e) => {
-    if(e.target.classList.contains('menu-overlay')){
-      this.nav.classList.remove('menu--show');
-      this.overlay.classList.remove('menu-overlay--show');
-      this.body.style.overflowY = 'auto';
-    }
-    
-  });
- }
+    //Automatic runs these functions
+    this.open();
+    this.close();
+    this.checkIfSubmenu();
+    this.stick();
+  }
 
-stick() {
-  window.addEventListener('scroll', () => {
-    let fromTop = window.scrollY;
-    let screenWidth = document.body.clientWidth;
-    const TRIGGER_HEIGHT = 30;
+  // Properties
 
-    console.table([TRIGGER_HEIGHT, fromTop]);
+  open() {
+    this.openTrigger.addEventListener('click', (e) => {
+      this.nav.classList.add('menu--show');
+      this.closeTrigger.classList.add('menu-overlay--show');
+      this.wrapper.style.overflowY = 'hidden';
 
-    if (fromTop >= TRIGGER_HEIGHT) {
-      this.header.classList.add('header--sticky');
+    }, false);
+  }
+
+  close() {
+    this.overlay.addEventListener('click', (e) => {
+      if (e.target.classList.contains('menu-overlay')) {
+        this.nav.classList.remove('menu--show');
+        this.closeTrigger.classList.remove('menu-overlay--show');
+        this.wrapper.style.overflowY = 'auto';
+      }
+
+    });
+  }
+
+  stick() {
+    /* The scrollbar is in the wrapper div */
+    this.wrapper.addEventListener('scroll', () => {
+      let fromTop = this.wrapper.scrollTop;
+      let screenWidth = document.body.clientWidth;
+      const headerHeight = this.header.clientHeight;
+
+
+      /* Detects if screen width is mobile or not
+         then it declares a height trigger when scrolled.
+      */
+      const TRIGGER_HEIGHT = screenWidth > 800 ? 30 : 5;
+
+      /* Adds fixed head and a dynamic top 
+         padding for main content */
+      if (fromTop >= TRIGGER_HEIGHT) {
+        this.header.classList.add('header--sticky');
+        /* this.main.style.paddingTop = `${headerHeight}px`; */
+      } else {
+        this.header.classList.remove('header--sticky');
+        /* this.main.style.paddingTop = `0`; */
+      }
+
+    });
+  }
+
+  /* Check if Mobile to see what event listener to use */
+  checkIfSubmenu() {
+    /* Use touchstart event for Mobile,
+       otherwise, use click event
+    */
+    const action = this.isMobile() ? 'touchstart' : 'click';
+
+    /* Checks if theres a submenu */
+    if (this.subMenus.length) {
+      this.subMenus.forEach(submenu => {
+        submenu = submenu.children[0];
+
+        /* attach submenu action here */
+        submenu.addEventListener(action, (e) => {
+          this.toggleSubmenu(e);
+        });
+
+      });
+
+      console.log('Theres Submenus');
     } else {
-      this.header.classList.remove('header--sticky');
+      console.warn('No Submenus');
     }
 
-  });
-}
+  }
 
- /* Check if Mobile to see what event listener to use */
- checkIfSubmenu() {
-   /* Use touchstart event for Mobile,
-      otherwise, use click event
-   */
-   const action = this.isMobile() ? 'touchstart' : 'click';
-   
-   /* Checks if theres a submenu */
-   if(this.subMenus.length){
-     this.subMenus.forEach(submenu => {
-       submenu = submenu.children[0];
+  toggleSubmenu(e) {
+    /* Assuming <a> is the clicked Element */
+    const clickedElement = e.target;
+    const parent = clickedElement.offsetParent;
 
-       /* attach submenu action here */
-       submenu.addEventListener(action, (e) => {
-         this.toggleSubmenu(e);
-       });
+    e.preventDefault();
 
-     });
+    if (parent.classList.contains('menu-item-has-children')) {
+      const ul = clickedElement.nextElementSibling;
+      ul.classList.toggle('sub-menu--show');
+    }
+  }
 
-    console.log('Theres Submenus');
-   }else{
-     console.warn('No Submenus');
-   }
+  /* Checks if device is mobile */
+  isMobile() {
+    if (navigator.userAgent.match(/Android/i) ||
+      navigator.userAgent.match(/webOS/i) ||
+      navigator.userAgent.match(/iPhone/i) ||
+      navigator.userAgent.match(/iPad/i) ||
+      navigator.userAgent.match(/iPod/i) ||
+      navigator.userAgent.match(/BlackBerry/i) ||
+      navigator.userAgent.match(/Windows Phone/i))
 
- }
-
- toggleSubmenu(e, action) {
-   /* Assuming <a> is the clicked Element */
-   const clickedElement = e.target;
-   const parent = clickedElement.offsetParent;
-
-   e.preventDefault();
-
-   if (parent.classList.contains('menu-item-has-children')) {
-     const ul = clickedElement.nextElementSibling;
-     ul.classList.toggle('sub-menu--show');
-   }
- }
-
- /* Checks if device is mobile */
- isMobile() {
-   if (navigator.userAgent.match(/Android/i) ||
-     navigator.userAgent.match(/webOS/i) ||
-     navigator.userAgent.match(/iPhone/i) ||
-     navigator.userAgent.match(/iPad/i) ||
-     navigator.userAgent.match(/iPod/i) ||
-     navigator.userAgent.match(/BlackBerry/i) ||
-     navigator.userAgent.match(/Windows Phone/i))
-
-     return true;
- }
+      return true;
+  }
 
 }
-
-
