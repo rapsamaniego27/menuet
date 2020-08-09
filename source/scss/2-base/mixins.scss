@@ -50,3 +50,19 @@
 }
 
 }
+
+
+/* Mixin to create triangles */
+
+@mixin triangle($size, $side, $left:0, $top:0, $color:#073763){
+  position:relative;
+
+  &::after{
+    content: '';
+    position:absolute;
+    left:$left;
+    top:$top;
+    border:$size solid transparent;
+    border-#{$side}-color: $color;
+  }
+}
